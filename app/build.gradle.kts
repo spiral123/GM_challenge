@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -7,6 +9,14 @@ plugins {
 repositories {
     google()
     mavenCentral()
+}
+
+
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+    }
 }
 
 android {
@@ -68,6 +78,16 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
     testImplementation("app.cash.turbine:turbine:0.4.1")
+
+    // networking
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.3.0")
+    implementation("com.google.code.gson:gson:2.8.6")
+
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")

@@ -8,7 +8,9 @@
 - In Android Studio create new Project from Activity only template
 - Link new AS project to github repo
     - Copy over `.gitignore` from another project
-    - 
+    - Setup dependencies for coroutines and dagger
+    - Setup initial inject: OkHttp, Retrofit, NetworkArtistFetch
+    
 
 
 
