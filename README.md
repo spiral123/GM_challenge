@@ -8,9 +8,15 @@
 - In Android Studio create new Project from Activity only template
 - Link new AS project to github repo
     - Copy over `.gitignore` from another project
+- Setup DependencyInjection, MVI framework
     - Setup dependencies for coroutines and dagger
-    - Setup initial inject: OkHttp, Retrofit, NetworkArtistFetch
-    
+    - Setup initial injections: OkHttp, Retrofit, NetworkArtistFetch, ArtistViewModel etc.
+- Backend Development
+    - Write NetworkArtistFetch.kt
+    - Write ArtistViewModel.kt
+    - Write unit tests
+
+
 
 
 

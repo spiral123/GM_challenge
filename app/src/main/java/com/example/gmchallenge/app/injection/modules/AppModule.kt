@@ -2,14 +2,12 @@
 
 package com.example.gmchallenge.app.injection.modules
 
+import com.example.gmchallenge.data.network.ArtistSearchApi
 import com.example.gmchallenge.data.network.NetworkArtistFetch
 import com.example.gmchallenge.presentation.features.ArtistViewModel
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -48,21 +46,27 @@ internal class AppModule {
 
     @Provides
     @Singleton
-    fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-
-    @Provides
-    @Singleton
-    fun provideNetworkArtistFetch(
-        ioDispatcher: CoroutineDispatcher,
-        retrofit: Retrofit
-    ): NetworkArtistFetch {
-        return NetworkArtistFetch(ioDispatcher, retrofit)
+    fun providesCoroutineScope(): CoroutineScope {
+        return CoroutineScope(SupervisorJob() + Dispatchers.IO)
     }
 
     @Provides
     @Singleton
-    fun provideArtistViewModel(repo: NetworkArtistFetch): ArtistViewModel {
-        return ArtistViewModel(repo)
+    fun provideNetworkArtistFetch(
+        ioDispatcher: CoroutineScope,
+        retrofit: Retrofit
+    ): NetworkArtistFetch {
+        val artistSearchApi = retrofit.create(ArtistSearchApi::class.java)
+        return NetworkArtistFetch(artistSearchApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideArtistViewModel(
+        scope: CoroutineScope,
+        network: NetworkArtistFetch
+    ): ArtistViewModel {
+        return ArtistViewModel(scope, network)
     }
 
 
