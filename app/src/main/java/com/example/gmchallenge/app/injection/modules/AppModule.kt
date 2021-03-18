@@ -2,6 +2,8 @@
 
 package com.example.gmchallenge.app.injection.modules
 
+import com.example.gmchallenge.BuildConfig
+import com.example.gmchallenge.data.BaseUrl
 import com.example.gmchallenge.data.network.ArtistSearchApi
 import com.example.gmchallenge.data.network.NetworkArtistFetch
 import com.example.gmchallenge.presentation.features.ArtistViewModel
@@ -22,7 +24,7 @@ internal class AppModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://itunes.apple.com")
+            .baseUrl(BaseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -31,9 +33,11 @@ internal class AppModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(httpLoggingInterceptor)
-            .build()
+        val builder = OkHttpClient.Builder()
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(httpLoggingInterceptor)
+        }
+        return builder.build()
     }
 
     @Provides

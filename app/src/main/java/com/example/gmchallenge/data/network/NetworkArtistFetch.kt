@@ -19,13 +19,15 @@ class NetworkArtistFetch(private val artistSearchApi: ArtistSearchApi) {
         return try {
             val response = artistSearchApi.getArtistData(artistName)
             if (response.isSuccessful) {
-                ArtistDataState.Success(response.body()?.results ?: emptyList())
+                response.body()?.results?.let { tracks ->
+                    if (tracks.isEmpty()) {
+                        ArtistDataState.Error(Exception("No tracks for $artistName"))
+                    } else {
+                        ArtistDataState.Success(tracks)
+                    }
+                } ?: ArtistDataState.Error(Exception("No tracks for $artistName"))
             } else {
-                ArtistDataState.Error(
-                    Exception(
-                        response.errorBody()?.toString() ?: response.message()
-                    )
-                )
+                ArtistDataState.Error(Exception(response.raw().message))
             }
         } catch (e: Throwable) {
             ArtistDataState.Error(e)
