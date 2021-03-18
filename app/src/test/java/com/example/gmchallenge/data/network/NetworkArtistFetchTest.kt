@@ -6,11 +6,13 @@ import com.example.utils.enqueueResponse
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.runBlocking
+import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import java.net.HttpURLConnection
+import java.util.concurrent.TimeUnit
 
 
 class NetworkArtistFetchTest {
@@ -63,7 +65,7 @@ class NetworkArtistFetchTest {
     }
 
     @Test
-    fun `verify bad network response returns meaningful error`() {
+    fun `verify bad server response returns meaningful error`() {
         mockWebServer.enqueueResponse("empty_response.json", HttpURLConnection.HTTP_BAD_GATEWAY)
 
         runBlocking {
@@ -71,6 +73,24 @@ class NetworkArtistFetchTest {
 
             assertTrue(actual is ArtistDataState.Error)
             assertEquals("Server Error", (actual as ArtistDataState.Error).exception.message)
+        }
+    }
+
+    @Test
+    fun `verify network timeout returns meaningful error`() {
+        val response = MockResponse()
+            .addHeader("Content-Type", "application/json; charset=utf-8")
+            .addHeader("Cache-Control", "no-cache")
+            .setBody("{}")
+            .throttleBody(1, 5, TimeUnit.SECONDS)
+
+        mockWebServer.enqueue(response)
+
+        runBlocking {
+            val actual = sut.fetchArtistData("whatever")
+
+            assertTrue(actual is ArtistDataState.Error)
+            assertEquals("timeout", (actual as ArtistDataState.Error).exception.localizedMessage)
         }
     }
 
