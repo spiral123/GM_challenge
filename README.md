@@ -14,7 +14,8 @@
 - Backend Development
     - Write NetworkArtistFetch.kt
     - Write ArtistViewModel.kt
-    - Write unit tests
+    - Write unit tests for NetworkArtistFetch.kt and check coverage
+    - Write unit tests for ArtistViewModel and check coverage
 
 
 

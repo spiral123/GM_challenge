@@ -89,8 +89,12 @@ class NetworkArtistFetchTest {
         runBlocking {
             val actual = sut.fetchArtistData("whatever")
 
-            assertTrue(actual is ArtistDataState.Error)
-            assertEquals("timeout", (actual as ArtistDataState.Error).exception.localizedMessage)
+            assertTrue(
+                (actual as ArtistDataState.Error).exception.localizedMessage?.contains(
+                    "time",
+                    true
+                ) == true
+            )
         }
     }
 
