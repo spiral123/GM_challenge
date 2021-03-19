@@ -53,52 +53,71 @@ class ArtistViewModelTest {
     fun `verify sut is initialized with empty list`() {
         val expected = ArtistDataState.Success(emptyList())
 
-        assertEquals(expected, sut.artistData.value)
-    }
-
-    @Test
-    fun `verify resetArtistData emits an empty list to artistData`() {
         runBlocking {
-            sut.resetArtistData()
-
             sut.artistData.test {
-                assertEquals(0, (expectItem() as ArtistDataState.Success).data.size)
+                // initial state
+                assertEquals(ArtistDataState.Success(emptyList()), expectItem())
+
                 cancelAndIgnoreRemainingEvents()
             }
         }
     }
 
-    /**
-     * Something wrong with this test: works when class is run but not when full suite
-     */
     @Test
-    fun `verify loadArtistData first changes the state to Loading and then returns network result`() {
+    fun `verify loadArtistData changes the state to Loading and then returns network result`() {
         mockWebServer.enqueueResponse("artist_data_3_tracks.json", HttpURLConnection.HTTP_OK)
 
         runBlocking {
-            sut.loadArtistData("osijfdsdoi")
-
             sut.artistData.test {
+                // initial state
+                assertEquals(ArtistDataState.Success(emptyList()), expectItem())
+
+                sut.loadArtistData("osijfdsdoi")
                 assertEquals(ArtistDataState.Loading, expectItem())
                 assertEquals(3, (expectItem() as ArtistDataState.Success).data.size)
+
                 cancelAndIgnoreRemainingEvents()
             }
         }
     }
 
     @Test
-    fun `verify loadArtistData first changes the state to Loading and then returns network error`() {
+    fun `verify loadArtistData changes the state to Loading and then returns network error`() {
         mockWebServer.enqueueResponse("empty_response.json", HttpURLConnection.HTTP_BAD_GATEWAY)
 
         runBlocking {
-            sut.loadArtistData("osijfdsdoi")
-
             sut.artistData.test {
+                // initial state
+                assertEquals(ArtistDataState.Success(emptyList()), expectItem())
+
+                sut.loadArtistData("osijfdsdoi")
                 assertEquals(ArtistDataState.Loading, expectItem())
                 assertEquals(
                     "Server Error",
                     (expectItem() as ArtistDataState.Error).exception.message
                 )
+
+                cancelAndIgnoreRemainingEvents()
+            }
+        }
+    }
+
+    @Test
+    fun `verify resetArtistData emits an empty list to artistData`() {
+        mockWebServer.enqueueResponse("artist_data_3_tracks.json", HttpURLConnection.HTTP_OK)
+
+        runBlocking {
+            sut.artistData.test {
+                // initial state
+                assertEquals(ArtistDataState.Success(emptyList()), expectItem())
+
+                sut.loadArtistData("osijfdsdoi")
+                assertEquals(ArtistDataState.Loading, expectItem())
+                assertEquals(3, (expectItem() as ArtistDataState.Success).data.size)
+
+                sut.resetArtistData()
+                assertEquals(0, (expectItem() as ArtistDataState.Success).data.size)
+
                 cancelAndIgnoreRemainingEvents()
             }
         }
