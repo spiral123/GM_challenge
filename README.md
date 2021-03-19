@@ -2,8 +2,7 @@
 
 Dark theme       |  Light theme
 :-------------------------:|:-------------------------:
-![](https://user-images.githubusercontent.com/1404244/111828554-de070600-88c1-11eb-86f0-950a5623fe2e.png)
-  |  ![](https://user-images.githubusercontent.com/1404244/111828545-dc3d4280-88c1-11eb-942b-510e2fd68afd.png)
+![](https://user-images.githubusercontent.com/1404244/111828554-de070600-88c1-11eb-86f0-950a5623fe2e.png) |  ![](https://user-images.githubusercontent.com/1404244/111828545-dc3d4280-88c1-11eb-942b-510e2fd68afd.png)
 
 ## Approach
 
