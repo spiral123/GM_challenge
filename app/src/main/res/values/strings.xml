@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">GM Challenge</string>
+    <string name="app_bar_title">iTunes Track Listings</string>
+    <string name="search_artist">Search Artist</string>
+    <string name="artist_name">Artist name</string>
 </resources>

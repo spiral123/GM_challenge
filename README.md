@@ -16,6 +16,12 @@
     - Write ArtistViewModel.kt
     - Write unit tests for NetworkArtistFetch.kt and check coverage
     - Write unit tests for ArtistViewModel and check coverage
+- UI Development
+    - Add ViewBinding to MainActivity
+    - Start on layout: EditText and Search Button
+    - Work on EditText clear clicking
+    - Work on handling button click and initiate intent
+    
 
 
 

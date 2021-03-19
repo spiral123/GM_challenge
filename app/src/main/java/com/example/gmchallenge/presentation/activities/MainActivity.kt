@@ -3,6 +3,7 @@ package com.example.gmchallenge.presentation.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gmchallenge.R
+import com.example.gmchallenge.databinding.ActivityMainBinding
 import com.example.gmchallenge.presentation.features.ArtistViewModel
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
@@ -23,12 +24,32 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     @Inject
     internal lateinit var artistViewModel: ArtistViewModel
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
 
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        artistViewModel.loadArtistData("Bob Dylan")
+        supportActionBar?.title = getString(R.string.app_bar_title)
+
+        binding.artistInput.setEndIconOnClickListener {
+            supportActionBar?.title = getString(R.string.app_bar_title)
+            binding.artistInput.editText?.text?.clear()
+        }
+
+        binding.searchArtistButton.setOnClickListener {
+            handleSearchClick()
+        }
+    }
+
+    private fun handleSearchClick() {
+        val artistName = binding.artistInput.editText?.text.toString().trim()
+
+        if (artistName.isNotEmpty()) {
+            artistViewModel.loadArtistData(artistName)
+        }
     }
 }
