@@ -1,5 +1,9 @@
 # GM Coding Challenge
 
+![Light mode](https://user-images.githubusercontent.com/1404244/111817208-1b649700-88b4-11eb-95a5-a9011b079f2d.png)
+
+![Dark mode](https://user-images.githubusercontent.com/1404244/111817213-1d2e5a80-88b4-11eb-8140-3354f3468c01.png)
+
 ## Approach
 
 - Establish new github repo for project
