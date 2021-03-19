@@ -21,7 +21,11 @@
     - Start on layout: EditText and Search Button
     - Work on EditText clear clicking
     - Work on handling button click and initiate intent
-    
+    - Create track row layout
+    - Create track adapter and hook into layout
+    - Link adapter into MainActivity
+    - invoke Viewmodel Intents at the right places
+
 
 
 

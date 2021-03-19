@@ -8,6 +8,7 @@ data class ArtistData(
 )
 
 data class Track(
+    val trackId: Long,
     val artistName: String,
     val trackName: String,
     val trackPrice: BigDecimal? = BigDecimal.ZERO,

@@ -72,6 +72,7 @@ dependencies {
     kapt("com.google.dagger:dagger-android-processor:2.25.2")
 
     // coroutines
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
