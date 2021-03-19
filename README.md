@@ -1,8 +1,9 @@
 # GM Coding Challenge
 
-![Light mode](https://user-images.githubusercontent.com/1404244/111828277-73ee6100-88c1-11eb-88f7-af2c7d0c9917.png)
-
-![Dark mode](https://user-images.githubusercontent.com/1404244/111828310-7f418c80-88c1-11eb-82a6-2ebc8b9829c0.png)
+Dark theme       |  Light theme
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/1404244/111828554-de070600-88c1-11eb-86f0-950a5623fe2e.png)
+  |  ![](https://user-images.githubusercontent.com/1404244/111828545-dc3d4280-88c1-11eb-942b-510e2fd68afd.png)
 
 ## Approach
 
