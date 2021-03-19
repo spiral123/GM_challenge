@@ -8,7 +8,26 @@
 - In Android Studio create new Project from Activity only template
 - Link new AS project to github repo
     - Copy over `.gitignore` from another project
-    - 
+- Setup DependencyInjection, MVI framework
+    - Setup dependencies for coroutines and dagger
+    - Setup initial injections: OkHttp, Retrofit, NetworkArtistFetch, ArtistViewModel etc.
+- Backend Development
+    - Write NetworkArtistFetch.kt
+    - Write ArtistViewModel.kt
+    - Write unit tests for NetworkArtistFetch.kt and check coverage
+    - Write unit tests for ArtistViewModel and check coverage
+- UI Development
+    - Add ViewBinding to MainActivity
+    - Start on layout: EditText and Search Button
+    - Work on EditText clear clicking
+    - Work on handling button click and initiate intent
+    - Create track row layout
+    - Create track adapter and hook into layout
+    - Link adapter into MainActivity
+    - invoke Viewmodel Intents at the right places
+
+
+
 
 
 

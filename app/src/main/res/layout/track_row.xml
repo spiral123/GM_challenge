@@ -1,0 +1,70 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trackCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/horiz_margin"
+    android:layout_marginTop="@dimen/vert_margin"
+    android:layout_marginEnd="@dimen/horiz_margin"
+    android:layout_marginBottom="@dimen/vert_margin">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin">
+
+        <TextView
+            android:id="@+id/artistName"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/primaryGenreName"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            tools:text="Bob Dylan" />
+
+        <TextView
+            android:id="@+id/primaryGenreName"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="Rock" />
+
+        <TextView
+            android:id="@+id/trackName"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/artistName"
+            android:layout_marginTop="@dimen/easing"
+            android:layout_marginBottom="@dimen/easing"
+            android:ellipsize="end"
+            android:maxLines="2"
+            tools:text="Like a Rolling Stone" />
+
+        <TextView
+            android:id="@+id/releaseDate"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/trackName"
+            android:gravity="bottom"
+            tools:text="released: 16 Jan 1968" />
+
+        <TextView
+            android:id="@+id/price"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/trackName"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/releaseDate"
+            android:gravity="bottom|end"
+            tools:text="price: 1.29" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
