@@ -13,9 +13,9 @@ class TestRetrofit(private val mockWebServer: MockWebServer) {
     val artistSearchApiFake: ArtistSearchApi
 
     private val client = OkHttpClient.Builder()
-        .connectTimeout(1, TimeUnit.SECONDS)
-        .readTimeout(1, TimeUnit.SECONDS)
-        .writeTimeout(1, TimeUnit.SECONDS)
+        .connectTimeout(250, TimeUnit.MILLISECONDS)
+        .readTimeout(250, TimeUnit.MILLISECONDS)
+        .writeTimeout(250, TimeUnit.MILLISECONDS)
         .build()
 
     init {
