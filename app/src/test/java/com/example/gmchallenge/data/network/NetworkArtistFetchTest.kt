@@ -82,18 +82,15 @@ class NetworkArtistFetchTest {
             .addHeader("Content-Type", "application/json; charset=utf-8")
             .addHeader("Cache-Control", "no-cache")
             .setBody("{}")
-            .throttleBody(1, 5, TimeUnit.SECONDS)
-
+            .throttleBody(1, 300, TimeUnit.MILLISECONDS)
         mockWebServer.enqueue(response)
 
         runBlocking {
             val actual = sut.fetchArtistData("whatever")
 
             assertTrue(
-                (actual as ArtistDataState.Error).exception.localizedMessage?.contains(
-                    "time",
-                    true
-                ) == true
+                (actual as ArtistDataState.Error)
+                    .exception.localizedMessage?.contains("time", true) == true
             )
         }
     }

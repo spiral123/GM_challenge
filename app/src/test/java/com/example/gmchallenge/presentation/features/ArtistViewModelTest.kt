@@ -27,8 +27,6 @@ class ArtistViewModelTest {
     private lateinit var mockWebServer: MockWebServer
     private lateinit var artistSearchApi: ArtistSearchApi
 
-    private var actualValues = mutableListOf<ArtistDataState>()
-
     private lateinit var sut: ArtistViewModel
 
     @Before
@@ -40,8 +38,6 @@ class ArtistViewModelTest {
         mockNetworkArtistFetch = NetworkArtistFetch(artistSearchApi)
 
         sut = ArtistViewModel(coroutineScope, mockNetworkArtistFetch)
-
-        actualValues.clear()
     }
 
     @After
@@ -51,8 +47,6 @@ class ArtistViewModelTest {
 
     @Test
     fun `verify sut is initialized with empty list`() {
-        val expected = ArtistDataState.Success(emptyList())
-
         runBlocking {
             sut.artistData.test {
                 // initial state
@@ -93,8 +87,7 @@ class ArtistViewModelTest {
                 sut.loadArtistData("osijfdsdoi")
                 assertEquals(ArtistDataState.Loading, expectItem())
                 assertEquals(
-                    "Server Error",
-                    (expectItem() as ArtistDataState.Error).exception.message
+                    "Server Error", (expectItem() as ArtistDataState.Error).exception.message
                 )
 
                 cancelAndIgnoreRemainingEvents()
