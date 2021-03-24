@@ -7,6 +7,7 @@ import com.example.gmchallenge.data.network.NetworkArtistFetch
 import com.example.utils.TestRetrofit
 import com.example.utils.enqueueResponse
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -110,6 +111,31 @@ class ArtistViewModelTest {
 
                 sut.resetArtistData()
                 assertEquals(0, (expectItem() as ArtistDataState.Success).data.size)
+
+                cancelAndIgnoreRemainingEvents()
+            }
+        }
+    }
+
+    @Test
+    fun `verify sort by release date`() {
+        mockWebServer.enqueueResponse("artist_data_3_tracks.json", HttpURLConnection.HTTP_OK)
+
+        val expectedOrder = arrayOf(192688540L, 192688675L, 251002654L)
+
+        runBlocking {
+            sut.artistData.test {
+                // initial state
+                assertEquals(ArtistDataState.Success(emptyList()), expectItem())
+
+                sut.sortArtistData("osijfdsdoi")
+                assertEquals(ArtistDataState.Loading, expectItem())
+
+                val actual = (expectItem() as ArtistDataState.Success).data
+                assertEquals(3, actual.size)
+
+                val actualOrder = actual.map { it.trackId }.toTypedArray()
+                assertTrue(expectedOrder.contentEquals(actualOrder))
 
                 cancelAndIgnoreRemainingEvents()
             }

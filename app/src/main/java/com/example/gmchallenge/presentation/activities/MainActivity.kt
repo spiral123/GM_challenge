@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         val artistName = binding.artistInput.editText?.text.toString().trim()
 
         if (artistName.isNotEmpty()) {
-            artistViewModel.loadArtistData(artistName)
+            artistViewModel.sortArtistData(artistName)
         }
     }
 

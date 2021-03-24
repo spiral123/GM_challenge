@@ -26,5 +26,12 @@ class ArtistViewModel(private val scope: CoroutineScope, private val network: Ne
         }
     }
 
+    fun sortArtistData(artistName: String) {
+        scope.launch {
+            _artistData.emit(ArtistDataState.Loading)
+            _artistData.emit(network.fetchArtistData(artistName, sort = true))
+        }
+    }
+
 
 }

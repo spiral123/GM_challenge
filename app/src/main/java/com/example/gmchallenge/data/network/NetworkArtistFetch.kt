@@ -16,7 +16,7 @@ interface ArtistSearchApi {
 
 class NetworkArtistFetch(private val artistSearchApi: ArtistSearchApi) {
 
-    suspend fun fetchArtistData(artistName: String): ArtistDataState {
+    suspend fun fetchArtistData(artistName: String, sort: Boolean = false): ArtistDataState {
         return try {
             val response = artistSearchApi.getArtistData(artistName)
             if (response.isSuccessful) {
@@ -24,7 +24,11 @@ class NetworkArtistFetch(private val artistSearchApi: ArtistSearchApi) {
                 if (tracks.isEmpty()) {
                     ArtistDataState.Error(Exception("No tracks for $artistName"))
                 } else {
-                    ArtistDataState.Success(tracks)
+                    ArtistDataState.Success(if (sort) {
+                        tracks.sortedBy { it.releaseDate }
+                    } else {
+                        tracks
+                    })
                 }
             } else {
                 ArtistDataState.Error(Exception(response.raw().message))
